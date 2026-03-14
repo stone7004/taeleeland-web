@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>태리랜드 | 30년 미용 유통 전문</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#B8943A;--gold-lt:#D4AE5C;--gold-pale:#F2E9D4;
+  --cream:#FAF7F2;--dark:#111008;--dark2:#1C1A12;--charcoal:#2E2C24;
+  --warm-gray:#8C8878;--mid:#C4BFB0;--white:#FEFCF8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--white);color:var(--dark);font-family:'Noto Sans KR',sans-serif;font-weight:300;overflow-x:hidden;}
+*{cursor:none!important;}
+#cur{position:fixed;width:7px;height:7px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#cur-r{position:fixed;width:28px;height:28px;border:1px solid rgba(184,148,58,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .16s ease;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 64px;display:flex;justify-content:space-between;align-items:center;transition:all .35s ease;}
+nav.solid{background:rgba(17,16,8,.95);backdrop-filter:blur(18px);padding:14px 64px;border-bottom:1px solid rgba(184,148,58,.12);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:.05em;color:var(--gold-lt);line-height:1;text-decoration:none;}
+.nav-logo small{display:block;font-family:'Noto Sans KR',sans-serif;font-size:9px;font-weight:300;letter-spacing:.35em;color:var(--warm-gray);margin-top:3px;text-transform:uppercase;}
+.nav-menu{display:flex;gap:32px;list-style:none;align-items:center;}
+.nav-menu a{color:var(--mid);text-decoration:none;font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:color .25s;font-weight:400;}
+.nav-menu a:hover{color:var(--gold-lt);}
+.nav-shop{background:var(--gold);color:var(--dark)!important;padding:9px 24px;font-size:11px!important;letter-spacing:.18em!important;font-weight:500!important;transition:background .25s!important;}
+.nav-shop:hover{background:var(--gold-lt)!important;}
+/* 플로팅 쇼핑몰 버튼 */
+.float-shop{position:fixed;bottom:28px;right:28px;z-index:500;display:flex;align-items:center;gap:10px;background:var(--gold);color:var(--dark);text-decoration:none;padding:14px 22px;font-size:12px;font-weight:500;letter-spacing:.14em;font-family:'Noto Sans KR',sans-serif;box-shadow:0 8px 32px rgba(184,148,58,.45);transition:all .3s;}
+.float-shop:hover{background:var(--gold-lt);transform:translateY(-3px);box-shadow:0 14px 40px rgba(184,148,58,.55);}
+.float-shop svg{flex-shrink:0;}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:var(--dark);}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 90% 70% at 60% 40%,rgba(184,148,58,.07) 0%,transparent 55%),radial-gradient(ellipse 50% 50% at 90% 90%,rgba(184,148,58,.04) 0%,transparent 50%),linear-gradient(160deg,#0A0900 0%,#13110A 50%,#0E0D07 100%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(184,148,58,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(184,148,58,.035) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse at 55% 45%,black 25%,transparent 72%);}
+.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 400px;gap:60px;align-items:center;padding:0 64px;width:100%;max-width:1400px;margin:0 auto;}
+.h-tag{display:inline-flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:32px;opacity:0;animation:fU .8s ease .2s forwards;}
+.h-tag::before{content:'';width:36px;height:1px;background:var(--gold);}
+.h-title{font-family:'Cormorant Garamond',serif;font-size:clamp(58px,7.5vw,100px);line-height:1.0;font-weight:600;color:var(--white);margin-bottom:10px;opacity:0;animation:fU .9s ease .35s forwards;}
+.h-title em{font-style:italic;color:var(--gold-lt);}
+.h-title-kr{font-family:'Noto Serif KR',serif;font-size:clamp(20px,2.8vw,34px);font-weight:300;letter-spacing:.12em;color:var(--warm-gray);margin-bottom:36px;opacity:0;animation:fU .9s ease .5s forwards;}
+.h-desc{font-size:14px;line-height:2;letter-spacing:.04em;color:rgba(196,191,176,.7);max-width:500px;margin-bottom:48px;opacity:0;animation:fU .9s ease .65s forwards;}
+.h-btns{display:flex;gap:16px;align-items:center;opacity:0;animation:fU .9s ease .8s forwards;}
+.btn-gold{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--dark);text-decoration:none;padding:15px 36px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;transition:all .3s;font-family:'Noto Sans KR',sans-serif;}
+.btn-gold:hover{background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 10px 36px rgba(184,148,58,.25);}
+.btn-line{display:inline-flex;align-items:center;gap:8px;color:var(--mid);text-decoration:none;font-size:12px;letter-spacing:.15em;text-transform:uppercase;border-bottom:1px solid rgba(196,191,176,.3);padding-bottom:2px;transition:all .25s;}
+.btn-line:hover{color:var(--gold-lt);border-color:var(--gold);}
+.hero-panel{display:flex;flex-direction:column;gap:12px;opacity:0;animation:fL .9s ease 1s forwards;}
+.h-card{background:rgba(255,255,255,.03);border:1px solid rgba(184,148,58,.14);padding:22px 28px;position:relative;overflow:hidden;backdrop-filter:blur(8px);}
+.h-card::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:var(--gold);}
+.h-card-num{font-family:'Cormorant Garamond',serif;font-size:44px;color:var(--gold-lt);line-height:1;font-weight:400;}
+.h-card-lbl{font-size:10px;letter-spacing:.25em;color:var(--warm-gray);text-transform:uppercase;margin-top:4px;}
+.scroll-hint{position:absolute;bottom:36px;left:64px;display:flex;align-items:flex-end;gap:10px;font-size:9px;letter-spacing:.35em;color:var(--warm-gray);text-transform:uppercase;opacity:0;animation:fU .8s ease 1.3s forwards;}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);}
+
+/* TICKER */
+.ticker{background:var(--dark2);border-top:1px solid rgba(184,148,58,.1);border-bottom:1px solid rgba(184,148,58,.1);padding:18px 0;overflow:hidden;mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent);}
+.ticker-track{display:flex;gap:52px;align-items:center;animation:tickScroll 28s linear infinite;width:max-content;}
+.ticker-item{font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:.1em;color:var(--warm-gray);white-space:nowrap;opacity:.7;transition:color .3s;}
+.ticker-item:hover{color:var(--gold-lt);opacity:1;}
+.ticker-dot{width:3px;height:3px;border-radius:50%;background:rgba(184,148,58,.3);flex-shrink:0;}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1fr 1fr;background:var(--cream);}
+.about-visual{position:relative;min-height:560px;background:var(--dark2);overflow:hidden;}
+.about-vis-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.about-circle-wrap{position:relative;width:280px;height:280px;}
+.a-ring{position:absolute;inset:0;border:1px solid rgba(184,148,58,.15);border-radius:50%;animation:rot 25s linear infinite;}
+.a-ring-2{position:absolute;inset:30px;border:1px solid rgba(184,148,58,.22);border-radius:50%;animation:rot 18s linear infinite reverse;}
+.a-core{position:absolute;inset:80px;background:rgba(184,148,58,.06);border:1px solid rgba(184,148,58,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;}
+.a-core-num{font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--gold-lt);line-height:1;}
+.a-core-lbl{font-size:9px;letter-spacing:.25em;color:var(--warm-gray);text-transform:uppercase;}
+.about-badge-box{position:absolute;bottom:36px;left:36px;background:var(--gold);padding:20px 28px;}
+.about-badge-box .b-num{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--dark);font-weight:600;line-height:1;}
+.about-badge-box .b-lbl{font-size:10px;letter-spacing:.2em;color:rgba(17,16,8,.6);text-transform:uppercase;margin-top:4px;}
+.about-vis-deco{position:absolute;top:30px;right:30px;width:70px;height:70px;border-right:1px solid rgba(184,148,58,.3);border-top:1px solid rgba(184,148,58,.3);}
+.about-text{padding:80px 72px;display:flex;flex-direction:column;justify-content:center;}
+.sec-eye{font-size:9px;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.sec-eye::after{content:'';flex:1;max-width:48px;height:1px;background:var(--gold);opacity:.5;}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3.8vw,50px);line-height:1.15;font-weight:600;margin-bottom:24px;}
+.sec-title em{font-style:italic;color:var(--gold);}
+.about-body{font-size:14px;line-height:2.1;color:var(--warm-gray);letter-spacing:.04em;margin-bottom:36px;}
+.about-chips{display:flex;flex-wrap:wrap;gap:10px;}
+.chip{border:1px solid rgba(184,148,58,.3);padding:7px 16px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--charcoal);}
+
+/* CATEGORY */
+.category{padding:100px 64px;background:var(--white);}
+.cat-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px;}
+.cat-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:320px 260px;gap:3px;}
+.cat-card{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:32px;text-decoration:none;color:inherit;background:var(--dark2);}
+.cat-card:first-child{grid-row:1/3;}
+.cat-bg{position:absolute;inset:0;transition:transform .6s ease;}
+.cat-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,4,.92) 0%,rgba(8,8,4,.35) 55%,transparent 100%);transition:opacity .4s;}
+.cat-card:hover .cat-bg{transform:scale(1.06);}
+.cat-card:hover .cat-ov{opacity:.7;}
+.bg-beauty{background:radial-gradient(ellipse at 40% 60%,#1E1A0F 0%,#0C0B07 100%);}
+.bg-life{background:radial-gradient(ellipse at 60% 40%,#101820 0%,#080D12 100%);}
+.bg-moto{background:radial-gradient(ellipse at 50% 60%,#1A1008 0%,#0E0906 100%);}
+.bg-promo{background:radial-gradient(ellipse at 50% 50%,#180F1E 0%,#0D090E 100%);}
+.cat-deco{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.08;pointer-events:none;}
+.cat-inner{position:relative;z-index:2;}
+.cat-icon-wrap{width:44px;height:44px;border:1px solid rgba(184,148,58,.35);display:flex;align-items:center;justify-content:center;margin-bottom:14px;transition:all .3s;}
+.cat-card:hover .cat-icon-wrap{background:var(--gold);border-color:var(--gold);}
+.cat-card:hover .cat-icon-wrap svg{stroke:var(--dark);}
+.cat-name{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--white);margin-bottom:7px;letter-spacing:.03em;transition:color .3s;}
+.cat-card:first-child .cat-name{font-size:24px;}
+.cat-card:hover .cat-name{color:var(--gold-lt);}
+.cat-sub{font-size:12px;color:var(--warm-gray);line-height:1.7;letter-spacing:.04em;}
+.cat-arrow{display:inline-flex;align-items:center;gap:7px;margin-top:16px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateX(-8px);transition:all .3s;}
+.cat-card:hover .cat-arrow{opacity:1;transform:translateX(0);}
+
+/* FEATURES */
+.features{display:grid;grid-template-columns:1fr 1fr;background:var(--dark);}
+.feat-text{padding:100px 72px;border-right:1px solid rgba(184,148,58,.08);}
+.feat-list{margin-top:44px;}
+.feat-item{display:flex;gap:22px;padding:26px 0;border-bottom:1px solid rgba(255,255,255,.05);transition:all .3s;}
+.feat-item:first-child{border-top:1px solid rgba(255,255,255,.05);}
+.feat-item:hover{padding-left:8px;}
+.feat-num{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold);letter-spacing:.1em;flex-shrink:0;padding-top:2px;}
+.feat-body h4{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:600;color:var(--white);margin-bottom:8px;letter-spacing:.04em;}
+.feat-body p{font-size:13px;line-height:1.9;color:var(--warm-gray);letter-spacing:.04em;}
+.feat-visual{background:var(--dark2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.feat-visual::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 40% 60%,rgba(184,148,58,.08) 0%,transparent 55%);}
+.f-ring{width:260px;height:260px;border:1px solid rgba(184,148,58,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:rot 22s linear infinite;}
+.f-ring-2{width:190px;height:190px;border:1px solid rgba(184,148,58,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:rot 16s linear infinite reverse;}
+.f-core{width:110px;height:110px;background:rgba(184,148,58,.07);border:1px solid rgba(184,148,58,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;}
+.f-core-txt{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold-lt);letter-spacing:.12em;text-align:center;line-height:1.5;}
+
+/* SNS */
+.sns-section{background:var(--cream);padding:100px 64px;}
+.sns-inner{display:grid;grid-template-columns:300px 1fr;gap:60px;align-items:center;}
+.sns-channels{display:flex;flex-direction:column;gap:14px;margin-top:36px;}
+.sns-btn{display:flex;align-items:center;gap:16px;text-decoration:none;padding:16px 22px;border:1px solid rgba(184,148,58,.2);background:var(--white);transition:all .3s;}
+.sns-btn:hover{background:var(--gold);border-color:var(--gold);}
+.sns-btn:hover .sns-ic svg{stroke:var(--dark);}
+.sns-ic{width:36px;height:36px;border:1px solid rgba(184,148,58,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sns-btn-name{font-size:13px;font-weight:500;letter-spacing:.06em;}
+.sns-btn-handle{font-size:11px;color:var(--warm-gray);letter-spacing:.05em;margin-top:2px;}
+.sns-btn:hover .sns-btn-handle{color:rgba(17,16,8,.55);}
+.sns-right{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;}
+.sns-thumb{aspect-ratio:1;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;}
+.sns-thumb-ov{position:absolute;inset:0;background:rgba(184,148,58,.0);transition:background .3s;display:flex;align-items:center;justify-content:center;}
+.sns-thumb:hover .sns-thumb-ov{background:rgba(184,148,58,.25);}
+.sns-thumb-icon{opacity:0;transition:opacity .3s;}
+.sns-thumb:hover .sns-thumb-icon{opacity:1;}
+
+/* CTA */
+.cta-band{background:var(--gold);padding:90px 64px;display:flex;justify-content:space-between;align-items:center;gap:40px;}
+.cta-band h2{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,52px);color:var(--dark);font-weight:600;line-height:1.2;margin-bottom:10px;}
+.cta-band p{font-size:14px;color:rgba(17,16,8,.58);letter-spacing:.05em;}
+.btn-dark{display:inline-flex;align-items:center;gap:12px;flex-shrink:0;background:var(--dark);color:var(--gold-lt);text-decoration:none;padding:17px 40px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;transition:all .3s;}
+.btn-dark:hover{background:#1C1A10;transform:translateY(-2px);box-shadow:0 14px 44px rgba(0,0,0,.35);}
+
+/* CONTACT */
+.contact{display:grid;grid-template-columns:1fr 1fr;background:var(--dark);}
+.contact-left{padding:90px 72px;border-right:1px solid rgba(184,148,58,.08);}
+.c-items{margin-top:40px;display:flex;flex-direction:column;}
+.c-item{display:flex;gap:18px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.05);align-items:flex-start;}
+.c-item:first-child{border-top:1px solid rgba(255,255,255,.05);}
+.c-ic{width:38px;height:38px;flex-shrink:0;border:1px solid rgba(184,148,58,.2);display:flex;align-items:center;justify-content:center;margin-top:2px;}
+.c-lbl{font-size:9px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.c-val{font-size:14px;color:var(--white);line-height:1.7;letter-spacing:.04em;}
+.contact-right{padding:90px 72px;background:var(--dark2);}
+.h-row{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.h-day{font-size:13px;color:var(--warm-gray);letter-spacing:.05em;}
+.h-time{font-size:13px;color:var(--mid);}
+.biz-box{margin-top:36px;padding:28px;border:1px solid rgba(184,148,58,.12);background:rgba(184,148,58,.03);}
+.biz-title{font-size:9px;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;margin-bottom:14px;}
+.biz-info{font-size:12px;line-height:2.1;color:var(--warm-gray);letter-spacing:.04em;}
+.sns-icons{display:flex;gap:10px;margin-top:32px;}
+.s-ic{width:38px;height:38px;border:1px solid rgba(184,148,58,.2);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .3s;}
+.s-ic:hover{border-color:var(--gold);background:rgba(184,148,58,.08);}
+
+/* FOOTER */
+footer{background:var(--dark);border-top:1px solid rgba(184,148,58,.1);padding:48px 64px;display:flex;justify-content:space-between;align-items:center;gap:24px;}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold-lt);font-weight:600;text-decoration:none;}
+.foot-logo small{display:block;font-family:'Noto Sans KR',sans-serif;font-size:9px;color:var(--warm-gray);letter-spacing:.28em;font-weight:300;margin-top:4px;}
+.foot-links{display:flex;gap:24px;}
+.foot-links a{font-size:11px;color:var(--warm-gray);text-decoration:none;letter-spacing:.08em;transition:color .25s;}
+.foot-links a:hover{color:var(--gold-lt);}
+.foot-copy{font-size:10px;color:rgba(255,255,255,.18);letter-spacing:.12em;}
+.g-div{height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:.25;}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .85s ease,transform .85s ease;}
+.rv.on{opacity:1;transform:none;}
+
+/* ANIMATIONS */
+@keyframes fU{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+@keyframes fL{from{opacity:0;transform:translateX(24px);}to{opacity:1;transform:none;}}
+@keyframes rot{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes tickScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* PRODUCTS SHOWCASE */
+.products{padding:80px 64px;background:var(--cream);}
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:48px;}
+.prod-card{position:relative;overflow:hidden;background:var(--white);aspect-ratio:.9;display:block;text-decoration:none;border:1px solid rgba(184,148,58,.08);}
+.prod-card img{width:100%;height:100%;object-fit:cover;transition:transform .55s ease;}
+.prod-card:hover img{transform:scale(1.06);}
+.prod-card-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(17,16,8,.85) 0%,transparent 55%);opacity:0;transition:opacity .35s;}
+.prod-card:hover .prod-card-ov{opacity:1;}
+.prod-card-info{position:absolute;bottom:0;left:0;right:0;padding:18px 16px;transform:translateY(6px);opacity:0;transition:all .35s;}
+.prod-card:hover .prod-card-info{opacity:1;transform:none;}
+.prod-card-name{font-family:'Noto Serif KR',serif;font-size:11px;color:var(--white);letter-spacing:.04em;line-height:1.5;}
+.prod-card-price{font-size:11px;color:var(--gold-lt);margin-top:4px;letter-spacing:.06em;}
+.prod-more{display:flex;justify-content:center;margin-top:40px;}
+
+/* RESPONSIVE */
+@media(max-width:980px){
+  nav{padding:18px 24px;}nav.solid{padding:12px 24px;}
+  .nav-menu{display:none;}
+  .nav-shop-mobile{display:flex!important;}
+  .hero-inner{grid-template-columns:1fr;padding:0 24px;}
+  .hero-panel{display:none;}
+  .scroll-hint{display:none;}
+  .h-tag,.h-title,.h-title-kr,.h-desc,.h-btns{opacity:1!important;transform:none!important;animation:none!important;}
+  .about{grid-template-columns:1fr;}
+  .about-visual{min-height:260px;}
+  .about-text{padding:56px 28px;}
+  .category{padding:72px 24px;}
+  .cat-grid{grid-template-columns:1fr;grid-template-rows:auto;}
+  .cat-card:first-child{grid-row:auto;min-height:280px;}
+  .cat-card{min-height:200px;}
+  .features{grid-template-columns:1fr;}
+  .feat-text{padding:72px 28px;border-right:none;}
+  .feat-visual{min-height:280px;}
+  .sns-section{padding:72px 24px;}
+  .sns-inner{grid-template-columns:1fr;gap:36px;}
+  .sns-right{grid-template-columns:repeat(4,1fr);}
+  .cta-band{flex-direction:column;padding:72px 24px;}
+  .contact{grid-template-columns:1fr;}
+  .contact-left{padding:72px 24px;border-right:none;border-bottom:1px solid rgba(184,148,58,.08);}
+  .contact-right{padding:56px 24px;}
+  footer{flex-direction:column;text-align:center;padding:40px 24px;}
+  .foot-links{flex-wrap:wrap;justify-content:center;}
+  .products{padding:60px 20px;}
+  .prod-grid{grid-template-columns:repeat(2,1fr);gap:3px;}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- 플로팅 쇼핑몰 버튼 -->
+<a href="https://taeleeland.com/" target="_blank" class="float-shop">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+  쇼핑몰 바로가기
+</a>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="https://taeleeland.com/" target="_blank" class="nav-logo">
+    Taeleeland
+    <small>태리랜드 뷰티 전문 유통</small>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="#about">브랜드 소개</a></li>
+    <li><a href="#category">카테고리</a></li>
+    <li><a href="#why">서비스</a></li>
+    <li><a href="#contact">고객센터</a></li>
+    <li><a href="https://taeleeland.com/" target="_blank" class="nav-shop">쇼핑몰 바로가기</a></li>
+  </ul>
+  <a href="https://taeleeland.com/" target="_blank" class="nav-shop nav-shop-mobile" style="display:none;">쇼핑몰</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="h-tag">Beauty &amp; Professional Supply Since 1995</div>
+      <h1 class="h-title">The Art of<br><em>Beauty</em></h1>
+      <p class="h-title-kr">30년, 미용의 품격</p>
+      <p class="h-desc">30년 이상의 미용 유통 전문 노하우로 엄선한<br>헤어·뷰티 전문 용품부터 생활용품·오토바이 관련 제품까지.<br>원장님이 필요한 모든 것, 태리랜드에서 한 번에.</p>
+      <div class="h-btns">
+        <a href="https://taeleeland.com/" target="_blank" class="btn-gold">
+          쇼핑몰 바로가기
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#category" class="btn-line">
+          카테고리 보기
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="h-card">
+        <div class="h-card-num">30<span style="font-size:24px;">+</span></div>
+        <div class="h-card-lbl">Years of Experience</div>
+      </div>
+      <div class="h-card">
+        <div class="h-card-num">100<span style="font-size:24px;">+</span></div>
+        <div class="h-card-lbl">Premium Brands</div>
+      </div>
+      <div class="h-card">
+        <div class="h-card-num">B2B</div>
+        <div class="h-card-lbl">Professional Supply</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- BRAND TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">밀본코리아</span><span class="ticker-dot"></span>
+    <span class="ticker-item">데미코리아</span><span class="ticker-dot"></span>
+    <span class="ticker-item">로레알</span><span class="ticker-dot"></span>
+    <span class="ticker-item">시세이도</span><span class="ticker-dot"></span>
+    <span class="ticker-item">웰라</span><span class="ticker-dot"></span>
+    <span class="ticker-item">그리에이트</span><span class="ticker-dot"></span>
+    <span class="ticker-item">브리티시엠</span><span class="ticker-dot"></span>
+    <span class="ticker-item">JMW</span><span class="ticker-dot"></span>
+    <span class="ticker-item">에어라파</span><span class="ticker-dot"></span>
+    <span class="ticker-item">폴미첼</span><span class="ticker-dot"></span>
+    <span class="ticker-item">어반트라이브</span><span class="ticker-dot"></span>
+    <span class="ticker-item">워맥스</span><span class="ticker-dot"></span>
+    <span class="ticker-item">베르스파</span><span class="ticker-dot"></span>
+    <span class="ticker-item">바이오메드</span><span class="ticker-dot"></span>
+    <span class="ticker-item">엘라플렉스</span><span class="ticker-dot"></span>
+    <span class="ticker-item">신데렐라</span><span class="ticker-dot"></span>
+    <span class="ticker-item">밀본코리아</span><span class="ticker-dot"></span>
+    <span class="ticker-item">데미코리아</span><span class="ticker-dot"></span>
+    <span class="ticker-item">로레알</span><span class="ticker-dot"></span>
+    <span class="ticker-item">시세이도</span><span class="ticker-dot"></span>
+    <span class="ticker-item">웰라</span><span class="ticker-dot"></span>
+    <span class="ticker-item">그리에이트</span><span class="ticker-dot"></span>
+    <span class="ticker-item">브리티시엠</span><span class="ticker-dot"></span>
+    <span class="ticker-item">JMW</span><span class="ticker-dot"></span>
+    <span class="ticker-item">에어라파</span><span class="ticker-dot"></span>
+    <span class="ticker-item">폴미첼</span><span class="ticker-dot"></span>
+    <span class="ticker-item">어반트라이브</span><span class="ticker-dot"></span>
+    <span class="ticker-item">워맥스</span><span class="ticker-dot"></span>
+    <span class="ticker-item">베르스파</span><span class="ticker-dot"></span>
+    <span class="ticker-item">바이오메드</span><span class="ticker-dot"></span>
+    <span class="ticker-item">엘라플렉스</span><span class="ticker-dot"></span>
+    <span class="ticker-item">신데렐라</span><span class="ticker-dot"></span>
+  </div>
+</div>
+
+<!-- PRODUCTS SHOWCASE -->
+<section class="products" id="products">
+  <div class="rv">
+    <div class="sec-eye">대표 상품</div>
+    <h2 class="sec-title" style="font-size:clamp(26px,3.2vw,44px);">엄선된 미용 전문 제품</h2>
+  </div>
+  <div class="prod-grid rv">
+    <a href="https://taeleeland.com/product/%EB%B0%80%EB%B3%B8-%EC%98%AC%EB%94%94%EB%B8%8C-%EC%97%BC%EC%83%89-80g-12%EA%B0%9C-%EA%B5%AC%EB%A7%A4%EC%8B%9C-%ED%95%A0%EC%9D%B8-%EC%82%B0%ED%99%94%EC%A0%9C-1000ml-1%EA%B0%9C-%EC%A6%9D%EC%A0%95/53/" target="_blank" class="prod-card">
+      <img src="https://taeleeland.com/web/product/medium/202508/b4c7dfbe6dbdb81fbc21cf4762be9993.jpg" alt="밀본 올디브 염색" loading="lazy">
+      <div class="prod-card-ov"></div>
+      <div class="prod-card-info">
+        <div class="prod-card-name">밀본 올디브 염색 80g</div>
+        <div class="prod-card-price">8,000원</div>
+      </div>
+    </a>
+    <a href="https://taeleeland.com/product/%EB%B0%80%EB%B3%B8-%EC%96%B4%EB%94%95%EC%8B%9C-%ED%97%A4%EC%96%B4%EC%BB%AC%EB%9F%AC-80g-12%EA%B0%9C%EB%8B%B9-%EC%82%B0%ED%99%94%EC%A0%9C-1000ml-1%EA%B0%9C-%EC%A6%9D%EC%A0%95/32/" target="_blank" class="prod-card">
+      <img src="https://taeleeland.com/web/product/medium/202508/298cccc05322775e723d9d81853389cb.jpg" alt="밀본 어딕시 헤어컬러" loading="lazy">
+      <div class="prod-card-ov"></div>
+      <div class="prod-card-info">
+        <div class="prod-card-name">밀본 어딕시 헤어컬러 80g</div>
+        <div class="prod-card-price">10,000원</div>
+      </div>
+    </a>
+    <a href="https://taeleeland.com/product/%EB%B0%80%EB%B3%B8-%EC%96%B4%EB%94%95%EC%8B%9C-%EB%B8%94%EB%A6%AC%EC%B9%98-%ED%83%88%EC%83%89%EC%95%BD-500g/31/" target="_blank" class="prod-card">
+      <img src="https://taeleeland.com/web/product/medium/202508/63f582370cd23e67f8dc8f1284f73369.jpg" alt="밀본 어딕시 블리치 탈색약" loading="lazy">
+      <div class="prod-card-ov"></div>
+      <div class="prod-card-info">
+        <div class="prod-card-name">밀본 어딕시 블리치 탈색약 500g</div>
+        <div class="prod-card-price">30,000원</div>
+      </div>
+    </a>
+    <a href="https://taeleeland.com/product/%EB%B0%80%EB%B3%B8-%EC%97%90%EB%85%B8%EA%B7%B8-%ED%97%A4%EC%96%B4%EC%BB%AC%EB%9F%AC-80g-12%EA%B0%9C%EB%8B%B9-%EC%82%B0%ED%99%94%EC%A0%9C-1000ml-1%EA%B0%9C-%EC%A6%9D%EC%A0%95/30/" target="_blank" class="prod-card">
+      <img src="https://taeleeland.com/web/product/medium/202508/bde09b3906dfee1fbff3c57af6db13e1.jpg" alt="밀본 에노그 헤어컬러" loading="lazy">
+      <div class="prod-card-ov"></div>
+      <div class="prod-card-info">
+        <div class="prod-card-name">밀본 에노그 헤어컬러 80g</div>
+        <div class="prod-card-price">10,000원</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-visual">
+    <div class="about-vis-inner">
+      <div class="about-circle-wrap">
+        <div class="a-ring"></div>
+        <div class="a-ring-2"></div>
+        <div class="a-core">
+          <div class="a-core-num">30</div>
+          <div class="a-core-lbl">Years</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-badge-box">
+      <div class="b-num">1995</div>
+      <div class="b-lbl">Established</div>
+    </div>
+    <div class="about-vis-deco"></div>
+  </div>
+  <div class="about-text rv">
+    <div class="sec-eye">About Taeleeland</div>
+    <h2 class="sec-title">미용 전문가를 위한<br><em>30년</em>의 약속</h2>
+    <p class="about-body">태리랜드는 1995년부터 지금까지 30년 동안 미용 유통의 한 길만을 걸어왔습니다. 현장에서 검증된 최고의 제품만을 엄선하여 원장님들께 공급하며, 단순한 유통을 넘어 미용인의 성공 파트너가 되고자 합니다.</p>
+    <div class="about-chips">
+      <span class="chip">Professional</span>
+      <span class="chip">Trust</span>
+      <span class="chip">Quality</span>
+      <span class="chip">B2B Supply</span>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY -->
+<section class="category" id="category">
+  <div class="cat-head rv">
+    <div>
+      <div class="sec-eye">Categories</div>
+      <h2 class="sec-title">태리랜드의<br>다양한 상품군</h2>
+    </div>
+  </div>
+  <div class="cat-grid rv">
+    <a href="https://taeleeland.com/category/%EB%AF%B8%EC%9A%A9%EC%8B%9C%EC%88%A0%EC%A0%9C%ED%92%88/113/" target="_blank" class="cat-card">
+      <div class="cat-bg bg-beauty"></div>
+      <div class="cat-ov"></div>
+      <div class="cat-inner">
+        <div class="cat-icon-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8943A" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="cat-name">미용 전문 제품</div>
+        <div class="cat-sub">염색약 · 펌제 · 샴푸 · 트리트먼트<br>전문가를 위한 프리미엄 라인업</div>
+        <div class="cat-arrow">Shop Now →</div>
+      </div>
+    </a>
+    <a href="https://taeleeland.com/category/%EC%83%9D%ED%99%9C%EC%9A%A9%ED%92%88/115/" target="_blank" class="cat-card">
+      <div class="cat-bg bg-life"></div>
+      <div class="cat-ov"></div>
+      <div class="cat-inner">
+        <div class="cat-icon-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8943A" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="cat-name">생활용품</div>
+        <div class="cat-sub">생활가전 · 의류<br>태리가 엄선한 실용 제품</div>
+        <div class="cat-arrow">Shop Now →</div>
+      </div>
+    </a>
+    <a href="https://taeleeland.com/category/%EC%98%A4%ED%86%A0%EB%B0%94%EC%9D%B4-%EA%B4%80%EB%A0%A8%EC%83%81%ED%92%88/114/" target="_blank" class="cat-card">
+      <div class="cat-bg bg-moto"></div>
+      <div class="cat-ov"></div>
+      <div class="cat-inner">
+        <div class="cat-icon-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8943A" stroke-width="1.5"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="18.5" cy="17.5" r="2.5"/><path d="M8 6h4l4 6H5l2-4z"/></svg>
+        </div>
+        <div class="cat-name">오토바이 용품</div>
+        <div class="cat-sub">라이더를 위한<br>전문 오토바이 관련 용품</div>
+        <div class="cat-arrow">Shop Now →</div>
+      </div>
+    </a>
+    <a href="https://taeleeland.com/category/%ED%94%84%EB%A1%9C%EB%AA%A8%EC%85%98/95/" target="_blank" class="cat-card">
+      <div class="cat-bg bg-promo"></div>
+      <div class="cat-ov"></div>
+      <div class="cat-inner">
+        <div class="cat-icon-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8943A" stroke-width="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        </div>
+        <div class="cat-name">특가 프로모션</div>
+        <div class="cat-sub">시한임박 초특가<br>특별 할인 이벤트</div>
+        <div class="cat-arrow">Shop Now →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="g-div"></div>
+
+<!-- FEATURES -->
+<section class="features" id="why">
+  <div class="feat-text rv">
+    <div class="sec-eye" style="color:var(--gold-lt);">Why Taeleeland</div>
+    <h2 class="sec-title" style="color:var(--white);">태리랜드를<br>선택하는 이유</h2>
+    <div class="feat-list">
+      <div class="feat-item">
+        <div class="feat-num">01</div>
+        <div class="feat-body">
+          <h4>30년 현장 검증 제품</h4>
+          <p>30년간 미용 현장에서 직접 쌓은 노하우로<br>검증된 제품만을 취급합니다. 품질 타협 없음.</p>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-num">02</div>
+        <div class="feat-body">
+          <h4>국내외 100+ 프리미엄 브랜드</h4>
+          <p>밀본, 로레알, 웰라, 시세이도 등 글로벌 브랜드부터<br>국내 전문 브랜드까지 폭넓게 취급합니다.</p>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-num">03</div>
+        <div class="feat-body">
+          <h4>B2B 전문 공급</h4>
+          <p>헤어살롱, 피부관리실, 네일샵 등<br>전문 업장을 위한 합리적인 도매 공급 서비스.</p>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-num">04</div>
+        <div class="feat-body">
+          <h4>빠르고 안전한 배송</h4>
+          <p>주문 당일 출고 원칙으로 원장님의<br>시술 일정에 차질 없이 신속하게 배송해드립니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="feat-visual">
+    <div style="position:relative;z-index:2;">
+      <div class="f-ring"><div class="f-ring-2"><div class="f-core"><div class="f-core-txt">태리<br>랜드</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="g-div"></div>
+
+<!-- SNS -->
+<section class="sns-section" id="sns">
+  <div class="sns-inner">
+    <div class="rv">
+      <div class="sec-eye">SNS 채널</div>
+      <h2 class="sec-title" style="font-size:clamp(26px,3vw,40px);">태리랜드와<br>함께하세요</h2>
+      <p style="font-size:13px;color:var(--warm-gray);line-height:1.9;letter-spacing:.04em;margin-top:16px;">인스타그램과 페이스북에서<br>최신 상품 정보와 프로모션 소식을<br>가장 먼저 만나보세요.</p>
+      <div class="sns-channels">
+        <a href="https://www.instagram.com/lee_tae_lee_1" target="_blank" class="sns-btn">
+          <div class="sns-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B8943A" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+          <div><div class="sns-btn-name">Instagram</div><div class="sns-btn-handle">@lee_tae_lee_1</div></div>
+          <svg style="margin-left:auto;flex-shrink:0;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://www.facebook.com/share/16zGorrr4y/" target="_blank" class="sns-btn">
+          <div class="sns-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B8943A" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></div>
+          <div><div class="sns-btn-name">Facebook</div><div class="sns-btn-handle">태리랜드 공식 페이지</div></div>
+          <svg style="margin-left:auto;flex-shrink:0;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="http://pf.kakao.com/_KxfIrn" target="_blank" class="sns-btn">
+          <div class="sns-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B8943A" stroke-width="1.5"><path d="M12 3C6.48 3 2 6.69 2 11.25c0 2.88 1.74 5.41 4.38 6.96L5.25 21l3.94-2.06c.91.2 1.85.31 2.81.31 5.52 0 10-3.69 10-8.25S17.52 3 12 3z"/></svg></div>
+          <div><div class="sns-btn-name">KakaoTalk 채널</div><div class="sns-btn-handle">태리랜드 카카오 채널</div></div>
+          <svg style="margin-left:auto;flex-shrink:0;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="sns-right rv">
+      <div class="sns-thumb" style="background:#1A1710;"><span style="font-size:22px;color:rgba(184,148,58,.2);">📸</span><div class="sns-thumb-ov"><div class="sns-thumb-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/></svg></div></div></div>
+      <div class="sns-thumb" style="background:#131820;"><span style="font-size:22px;color:rgba(184,148,58,.2);">📸</span><div class="sns-thumb-ov"><div class="sns-thumb-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/></svg></div></div></div>
+      <div class="sns-thumb" style="background:#1A1210;"><span style="font-size:22px;color:rgba(184,148,58,.2);">📸</span><div class="sns-thumb-ov"><div class="sns-thumb-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/></svg></div></div></div>
+      <div class="sns-thumb" style="background:#121A14;"><span style="font-size:22px;color:rgba(184,148,58,.2);">📸</span><div class="sns-thumb-ov"><div class="sns-thumb-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/></svg></div></div></div>
+      <div class="sns-thumb" style="background:#1A1A12;"><span style="font-size:22px;color:rgba(184,148,58,.2);">📸</span><div class="sns-thumb-ov"><div class="sns-thumb-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/></svg></div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="g-div"></div>
+
+<!-- CTA -->
+<div class="cta-band rv">
+  <div>
+    <h2>지금 바로 시작하세요</h2>
+    <p>원장님을 위한 최고의 미용 전문 용품이 기다립니다</p>
+  </div>
+  <a href="https://taeleeland.com/" target="_blank" class="btn-dark">
+    쇼핑몰 바로가기
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-left rv">
+    <div class="sec-eye" style="color:var(--gold-lt);">고객센터</div>
+    <h2 class="sec-title" style="color:var(--white);font-size:clamp(24px,2.8vw,38px);">언제든지<br>연락주세요</h2>
+    <div class="c-items">
+      <div class="c-item">
+        <div class="c-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8943A" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.81 19.79 19.79 0 012 2.18 2 2 0 014 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14z"/></svg></div>
+        <div><div class="c-lbl">전화</div><div class="c-val">010-3243-4329</div></div>
+      </div>
+      <div class="c-item">
+        <div class="c-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8943A" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div><div class="c-lbl">이메일</div><div class="c-val">stone700472@gmail.com</div></div>
+      </div>
+      <div class="c-item">
+        <div class="c-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8943A" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div>
+          <div class="c-lbl">주소</div>
+          <div class="c-val">서울특별시 서초구<br>주흥15길 5, 2층 205호<br>비마스</div>
+          <a href="https://naver.me/FaeQEUPK" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;letter-spacing:.12em;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(184,148,58,.3);padding-bottom:2px;transition:all .25s;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/></svg>
+            네이버 지도에서 보기 →
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="sns-icons">
+      <a href="https://www.instagram.com/lee_tae_lee_1" target="_blank" class="s-ic" title="Instagram">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8943A" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://www.facebook.com/share/16zGorrr4y/" target="_blank" class="s-ic" title="Facebook">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8943A" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="http://pf.kakao.com/_KxfIrn" target="_blank" class="s-ic" title="KakaoTalk">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8943A" stroke-width="1.5"><path d="M12 3C6.48 3 2 6.69 2 11.25c0 2.88 1.74 5.41 4.38 6.96L5.25 21l3.94-2.06c.91.2 1.85.31 2.81.31 5.52 0 10-3.69 10-8.25S17.52 3 12 3z"/></svg>
+      </a>
+      <a href="https://taeleeland.com/" target="_blank" class="s-ic" title="쇼핑몰">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8943A" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="contact-right rv">
+    <div class="sec-eye" style="color:var(--gold-lt);">운영시간</div>
+    <h3 style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:300;color:var(--white);letter-spacing:.06em;margin-top:8px;">CS 운영 안내</h3>
+    <div style="margin-top:28px;">
+      <div class="h-row"><span class="h-day">평일 (월 – 금)</span><span class="h-time">10:00 – 17:00</span></div>
+      <div class="h-row"><span class="h-day">토요일</span><span class="h-time" style="color:var(--warm-gray);">휴무</span></div>
+      <div class="h-row"><span class="h-day">일요일 및 공휴일</span><span class="h-time" style="color:var(--warm-gray);">휴무</span></div>
+    </div>
+    <div class="biz-box">
+      <div class="biz-title">사업자 정보</div>
+      <div class="biz-info">
+        상호명 : 비마스<br>
+        대표자 : 이광명<br>
+        사업자등록번호 : 128-36-60912<br>
+        통신판매업 신고 : 제2025-서울서초-1039호<br>
+        업태 : 도소매업 · 종목 : 미용재료 / 전자상거래 소매업<br>
+        주소 : 서울특별시 서초구 주흥15길 5, 2층 205호 (비마스)
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 홈페이지 제작문의 -->
+<div style="background:#0A0900;border-top:1px solid rgba(184,148,58,.08);padding:28px 64px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;">
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div style="width:1px;height:36px;background:rgba(184,148,58,.3);"></div>
+    <div>
+      <div style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;">홈페이지 제작문의</div>
+      <div style="font-size:13px;color:var(--mid);letter-spacing:.06em;">김석기 &nbsp;·&nbsp; <a href="tel:01087199226" style="color:var(--mid);text-decoration:none;transition:color .25s;">010-8719-9226</a></div>
+    </div>
+  </div>
+  <div style="font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.1em;">Designed by 김석기</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="https://taeleeland.com/" target="_blank" class="foot-logo">
+    Taeleeland
+    <small>태리랜드 © 2025 · All Rights Reserved</small>
+  </a>
+  <div class="foot-links">
+    <a href="https://taeleeland.com/member/mall_agreement.html" target="_blank">이용약관</a>
+    <a href="https://taeleeland.com/member/privacy.html" target="_blank">개인정보처리방침</a>
+    <a href="https://taeleeland.com/shopinfo/company.html" target="_blank">회사소개</a>
+    <a href="https://taeleeland.com/shopinfo/guide.html" target="_blank">이용안내</a>
+  </div>
+  <div class="foot-copy">Hosting by GitHub Pages</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>curR.style.transform='translate(-50%,-50%) scale(1.9)');
+  el.addEventListener('mouseleave',()=>curR.style.transform='translate(-50%,-50%) scale(1)');
+});
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>60));
+
+// Reveal Animation
+const observerOptions = { threshold: 0.15 };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('on');
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.rv').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

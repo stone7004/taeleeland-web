@@ -528,8 +528,59 @@ footer {
   transform: translateY(0);
 }
 
-/* ── 카테고리 탭 ── */
-.cat-tabs {
+/* ── 대표 제품 갤러리 ── */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.featured-item {
+  display: block;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.featured-item:hover { transform: translateY(-6px); }
+.featured-img-wrap {
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  background: var(--dark2);
+  border: 1px solid rgba(184,148,58,0.12);
+  margin-bottom: 16px;
+}
+.featured-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.featured-item:hover .featured-img-wrap img { transform: scale(1.05); }
+.featured-brand {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.featured-name {
+  font-size: 13px;
+  color: var(--text);
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.featured-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--gold-light);
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .featured-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+}
+
+/* ── 대표 제품 갤러리 ── */
   display: flex;
   justify-content: center;
   gap: 0;
@@ -574,15 +625,40 @@ footer {
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
   .nav-links { display: none; }
-  .hero-title { font-size: 48px; }
+  .hero-title { font-size: 44px; }
+  .hero-btns { flex-direction: column; align-items: center; }
+  .hero-btns .btn { width: 100%; max-width: 320px; justify-content: center; }
+
   .stats { grid-template-columns: 1fr; }
   .stat-item { border-right: none; border-bottom: 1px solid rgba(184,148,58,0.12); }
   .stat-item:last-child { border-bottom: none; }
-  .wholesale-wrap { grid-template-columns: 1fr; gap: 48px; }
-  .products-grid { grid-template-columns: 1fr; }
-  .section { padding: 72px 24px; }
-  footer { flex-direction: column; text-align: center; }
-  .float-kakao { bottom: 20px; right: 16px; padding: 12px 18px; font-size: 12px; }
+
+  .section { padding: 60px 20px; }
+
+  .wholesale-wrap { grid-template-columns: 1fr; gap: 40px; }
+  .wholesale-card { padding: 32px 24px; }
+
+  /* 핵심: 탭 안 그리드 모바일에서 1열로 */
+  .products-grid,
+  .cat-panel .products-grid,
+  [id^="tab-"] .products-grid { grid-template-columns: 1fr !important; }
+
+  .cat-tabs { flex-direction: column; width: 100%; }
+  .cat-tab { border-right: none; border-bottom: 1px solid rgba(184,148,58,0.25); padding: 16px; font-size: 13px; }
+  .cat-tab:last-child { border-bottom: none; }
+
+  /* SNS 버튼 */
+  .sns-btn { padding: 12px 20px; font-size: 12px; }
+
+  /* CTA 버튼 */
+  .cta-btns { flex-direction: column; align-items: center; }
+  .cta-btns .btn { width: 100%; max-width: 320px; justify-content: center; }
+
+  footer { flex-direction: column; text-align: center; padding: 40px 24px 0; }
+  footer > div { text-align: center; }
+  footer > div > div:last-child { text-align: center; }
+
+  .float-kakao { bottom: 20px; right: 16px; padding: 12px 16px; font-size: 12px; }
 }
 </style>
 </head>
@@ -703,128 +779,166 @@ footer {
   </div>
 </section>
 
-<!-- 상품 3분류 섹션 -->
+<!-- 상품 섹션 -->
 <div class="products-bg" id="products">
   <div class="section">
 
+    <!-- 미용 브랜드 메인 -->
     <div class="products-header">
-      <p class="section-eyebrow reveal">PRODUCT CATEGORY</p>
-      <h2 class="section-title reveal">취급 상품</h2>
+      <p class="section-eyebrow reveal">PROFESSIONAL BEAUTY</p>
+      <h2 class="section-title reveal">프로페셔널 미용 브랜드</h2>
       <div class="gold-line reveal" style="margin:24px auto;"></div>
+      <p class="section-sub reveal">미용실·헤어샵 전용 검증된 브랜드만 취급합니다</p>
     </div>
 
-    <!-- 탭 버튼 -->
-    <div class="cat-tabs reveal">
-      <button class="cat-tab active" onclick="switchTab('b2b')">프로페셔널 미용</button>
-      <button class="cat-tab" onclick="switchTab('b2c')">생활용품</button>
-      <button class="cat-tab" onclick="switchTab('moto')">오토바이 용품</button>
-    </div>
-
-    <!-- B2B 패널 -->
-    <div id="tab-b2b" class="cat-panel active">
-      <p style="text-align:center; font-size:13px; color:var(--muted); letter-spacing:0.05em; margin-bottom:40px;">미용실 · 헤어샵 전용 프로페셔널 브랜드</p>
-      <div class="products-grid" style="grid-template-columns:repeat(3,1fr);">
-        <div class="product-card">
-          <div class="product-brand">Milbon</div>
-          <p class="product-desc">트리트먼트 · 헤어케어 전 라인</p>
-          <span class="product-tag">PREMIUM</span>
-        </div>
-        <div class="product-card">
-          <div class="product-brand">L'Oréal</div>
-          <p class="product-desc">에르네뜨 스프레이 · 스타일링</p>
-          <span class="product-tag">PROFESSIONAL</span>
-        </div>
-        <div class="product-card">
-          <div class="product-brand">Shiseido</div>
-          <p class="product-desc">시세이도 프로페셔널 라인</p>
-          <span class="product-tag">PROFESSIONAL</span>
-        </div>
-        <div class="product-card">
-          <div class="product-brand">British M</div>
-          <p class="product-desc">젤 펌 · 헤어 그루밍 토닉</p>
-          <span class="product-tag">STYLING</span>
-        </div>
-        <div class="product-card">
-          <div class="product-brand">biomed</div>
-          <p class="product-desc">아미노산 LPP 치오 펌</p>
-          <span class="product-tag">TREATMENT</span>
-        </div>
-        <div class="product-card">
-          <div class="product-brand">DEMI</div>
-          <p class="product-desc">데미코리아 전문 라인</p>
-          <span class="product-tag">CARE</span>
-        </div>
-        <div class="product-card">
-          <div class="product-brand">NGC</div>
-          <p class="product-desc">엔씨페트라(뉴겐) 전문 라인</p>
-          <span class="product-tag">PROFESSIONAL</span>
-        </div>
-        <div class="product-card">
-          <div class="product-brand">Paul Mitchell</div>
-          <p class="product-desc">폴미첼 헤어케어 전 라인</p>
-          <span class="product-tag">PREMIUM</span>
-        </div>
-        <div class="product-card" style="cursor:pointer;" onclick="window.open('http://pf.kakao.com/_KxfIrn/chat','_blank')">
-          <div class="product-brand" style="color:var(--muted);">+ MORE</div>
-          <p class="product-desc">추가 브랜드 카카오톡으로 문의</p>
-          <span class="product-tag">INQUIRE</span>
-        </div>
+    <div class="products-grid reveal">
+      <div class="product-card">
+        <div class="product-brand">Milbon</div>
+        <p class="product-desc">트리트먼트 · 헤어케어 전 라인</p>
+        <span class="product-tag">PREMIUM</span>
       </div>
-      <div style="text-align:center; margin-top:36px;">
-        <a href="https://taeleeland.com/category/%EB%B8%8C%EB%9E%9C%EB%93%9C/42/" class="btn btn-outline" target="_blank">전체 브랜드 보기</a>
+      <div class="product-card">
+        <div class="product-brand">L'Oréal</div>
+        <p class="product-desc">에르네뜨 스프레이 · 스타일링</p>
+        <span class="product-tag">PROFESSIONAL</span>
+      </div>
+      <div class="product-card">
+        <div class="product-brand">Shiseido</div>
+        <p class="product-desc">시세이도 프로페셔널 라인</p>
+        <span class="product-tag">PROFESSIONAL</span>
+      </div>
+      <div class="product-card">
+        <div class="product-brand">British M</div>
+        <p class="product-desc">젤 펌 · 헤어 그루밍 토닉</p>
+        <span class="product-tag">STYLING</span>
+      </div>
+      <div class="product-card">
+        <div class="product-brand">biomed</div>
+        <p class="product-desc">아미노산 LPP 치오 펌</p>
+        <span class="product-tag">TREATMENT</span>
+      </div>
+      <div class="product-card">
+        <div class="product-brand">DEMI</div>
+        <p class="product-desc">데미코리아 전문 라인</p>
+        <span class="product-tag">CARE</span>
+      </div>
+      <div class="product-card">
+        <div class="product-brand">NGC</div>
+        <p class="product-desc">엔씨페트라(뉴겐) 전문 라인</p>
+        <span class="product-tag">PROFESSIONAL</span>
+      </div>
+      <div class="product-card">
+        <div class="product-brand">Paul Mitchell</div>
+        <p class="product-desc">폴미첼 헤어케어 전 라인</p>
+        <span class="product-tag">PREMIUM</span>
+      </div>
+      <div class="product-card" style="cursor:pointer;" onclick="window.open('http://pf.kakao.com/_KxfIrn/chat','_blank')">
+        <div class="product-brand" style="color:var(--muted);">+ MORE</div>
+        <p class="product-desc">추가 브랜드 카카오톡으로 문의</p>
+        <span class="product-tag">INQUIRE</span>
       </div>
     </div>
 
-    <!-- B2C 패널 -->
-    <div id="tab-b2c" class="cat-panel">
-      <p style="text-align:center; font-size:13px; color:var(--muted); letter-spacing:0.05em; margin-bottom:40px;">일반 소비자 대상 생활용품</p>
-      <div class="products-grid" style="grid-template-columns:repeat(3,1fr);">
-        <div class="product-card">
-          <div class="product-brand" style="font-size:18px;">핫팩</div>
-          <p class="product-desc">깔창형 · 부착용 · 파스형<br>USB 충전식 다양한 라인업</p>
-          <span class="product-tag">생활용품</span>
-        </div>
-        <div class="product-card">
-          <div class="product-brand" style="font-size:18px;">방한용품</div>
-          <p class="product-desc">발열조끼 · 발열쿠션<br>미니 난방기 · 방한의류</p>
-          <span class="product-tag">생활가전</span>
-        </div>
-        <div class="product-card">
-          <div class="product-brand" style="font-size:18px;">의류</div>
-          <p class="product-desc">방한모자 · 카고바지<br>기모이너 · 겨울 의류</p>
-          <span class="product-tag">의류</span>
-        </div>
-      </div>
-      <div style="text-align:center; margin-top:36px;">
-        <a href="https://taeleeland.com/category/%EC%83%9D%ED%99%9C%EC%9A%A9%ED%92%88/104/" class="btn btn-outline" target="_blank">생활용품 전체 보기</a>
+    <div style="text-align:center; margin-top:40px;" class="reveal">
+      <a href="https://taeleeland.com/category/%EB%B8%8C%EB%9E%9C%EB%93%9C/42/" class="btn btn-outline" target="_blank">전체 브랜드 쇼핑몰 보기</a>
+    </div>
+
+    <!-- 기타 상품 - 심플하게 -->
+    <div style="margin-top:80px; border-top:1px solid rgba(184,148,58,0.12); padding-top:60px;" class="reveal">
+      <p class="section-eyebrow" style="text-align:center; margin-bottom:16px;">MORE PRODUCTS</p>
+      <p style="text-align:center; font-size:13px; color:var(--muted); letter-spacing:0.05em; line-height:2; margin-bottom:36px;">
+        생활용품 · 오토바이 관련 용품도 함께 취급하고 있습니다.<br>
+        쇼핑몰에서 다양한 상품을 만나보세요.
+      </p>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <a href="https://taeleeland.com/category/%EC%83%9D%ED%99%9C%EC%9A%A9%ED%92%88/104/" target="_blank" class="btn btn-outline" style="font-size:12px; padding:12px 24px;">생활용품 보기</a>
+        <a href="https://taeleeland.com/category/%EC%98%A4%ED%86%A0%EB%B0%94%EC%9D%B4-%EA%B4%80%EB%A0%A8%EC%83%81%ED%92%88/114/" target="_blank" class="btn btn-outline" style="font-size:12px; padding:12px 24px;">오토바이 용품 보기</a>
       </div>
     </div>
 
-    <!-- 오토바이 패널 -->
-    <div id="tab-moto" class="cat-panel">
-      <p style="text-align:center; font-size:13px; color:var(--muted); letter-spacing:0.05em; margin-bottom:40px;">라이더를 위한 오토바이 전문 용품</p>
-      <div class="products-grid" style="grid-template-columns:repeat(3,1fr);">
-        <div class="product-card">
-          <div class="product-brand" style="font-size:18px;">안전용품</div>
-          <p class="product-desc">헬멧 실리콘 패드<br>핸들락 도난방지 자물쇠</p>
-          <span class="product-tag">SAFETY</span>
+  </div>
+</div>
+
+<!-- 대표 제품 이미지 섹션 -->
+<div style="background:var(--dark3); padding:80px 40px; border-top:1px solid rgba(184,148,58,0.1); border-bottom:1px solid rgba(184,148,58,0.1);">
+  <div style="max-width:1100px; margin:0 auto;">
+    <p class="section-eyebrow reveal" style="text-align:center; margin-bottom:16px;">FEATURED PRODUCTS</p>
+    <h2 class="section-title reveal" style="text-align:center; margin-bottom:12px;">대표 제품</h2>
+    <div class="gold-line reveal" style="margin:24px auto 48px;"></div>
+
+    <div class="featured-grid reveal">
+
+      <a href="https://taeleeland.com/product/%EC%97%90%EC%96%B4%EB%9D%BC%ED%8C%8C-%EB%8F%84%ED%9E%88%EC%8A%A4%ED%8C%8C-%EC%9C%A0%EB%8B%88%EB%B2%84%EC%84%A4-%ED%85%8C%EB%9D%BC%ED%94%BC-%EC%83%B4%ED%91%B8-%ED%97%A4%EB%93%9C%EC%8A%A4%ED%8C%8C/50/" target="_blank" class="featured-item">
+        <div class="featured-img-wrap">
+          <img src="https://taeleeland.com/web/product/medium/202508/c39502e65bbf1cd1840168d3334fc094.jpg" alt="에어라파 도히스파" loading="lazy">
         </div>
-        <div class="product-card">
-          <div class="product-brand" style="font-size:18px;">동계용품</div>
-          <p class="product-desc">스노우체인 · 방한부츠<br>터치장갑 · 발열 우비</p>
-          <span class="product-tag">WINTER</span>
+        <div class="featured-info">
+          <div class="featured-brand">에어라파</div>
+          <div class="featured-name">도히스파 유니버셜 테라피</div>
+          <div class="featured-price">770,000원</div>
         </div>
-        <div class="product-card">
-          <div class="product-brand" style="font-size:18px;">헬멧 액세서리</div>
-          <p class="product-desc">드레드락 헬멧 장식<br>헬멧 전용 액세서리</p>
-          <span class="product-tag">ACCESSORY</span>
+      </a>
+
+      <a href="https://taeleeland.com/product/%EB%B2%A0%EB%A5%B4%EC%8A%A4%ED%8C%8C-%EC%A0%9C%EB%8B%88%EC%8A%A4-%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84-%EC%95%88%EB%A7%88%EC%83%B4%ED%91%B8%EB%8C%80/38/" target="_blank" class="featured-item">
+        <div class="featured-img-wrap">
+          <img src="https://taeleeland.com/web/product/medium/202508/b1783f083c9dae71b6672811cca42a0d.png" alt="베르스파 안마샴푸대" loading="lazy">
         </div>
-      </div>
-      <div style="text-align:center; margin-top:36px;">
-        <a href="https://taeleeland.com/category/%EC%98%A4%ED%86%A0%EB%B0%94%EC%9D%B4-%EA%B4%80%EB%A0%A8%EC%83%81%ED%92%88/114/" class="btn btn-outline" target="_blank">오토바이용품 전체 보기</a>
-      </div>
+        <div class="featured-info">
+          <div class="featured-brand">베르스파</div>
+          <div class="featured-name">제니스 프리미엄 안마샴푸대</div>
+          <div class="featured-price">4,000,000원</div>
+        </div>
+      </a>
+
+      <a href="https://taeleeland.com/product/%EC%9B%8C%EB%A7%A5%EC%8A%A4-%EB%A8%B8%EC%8A%A4%ED%8A%B8x-%EB%94%94%EC%A7%80%ED%84%B8%ED%8E%8C%EA%B8%B0/49/" target="_blank" class="featured-item">
+        <div class="featured-img-wrap">
+          <img src="https://taeleeland.com/web/product/medium/202508/9f8b2a2947da9714b5ec395bdbd847af.jpg" alt="워맥스 디지털펌기" loading="lazy">
+        </div>
+        <div class="featured-info">
+          <div class="featured-brand">워맥스</div>
+          <div class="featured-name">머스트X 디지털펌기</div>
+          <div class="featured-price">2,500,000원</div>
+        </div>
+      </a>
+
+      <a href="https://taeleeland.com/product/%EA%B7%B8%EB%A6%AC%EC%97%90%EC%9D%B4%ED%8A%B8-%ED%8B%B0%ED%83%80%EB%8A%84-%EB%A7%A4%EC%A7%81%EB%AF%B8%EB%9F%AC-2-%ED%94%8C%EB%A0%9B-24mm-41-mm/54/" target="_blank" class="featured-item">
+        <div class="featured-img-wrap">
+          <img src="https://taeleeland.com/web/product/medium/202509/cb03a7d58d3285ff0f8dafb32cac1729.jpg" alt="그리에이트 매직미러" loading="lazy">
+        </div>
+        <div class="featured-info">
+          <div class="featured-brand">그리에이트</div>
+          <div class="featured-name">티타늄 매직미러2 플렛</div>
+          <div class="featured-price">120,000원</div>
+        </div>
+      </a>
+
+      <a href="https://taeleeland.com/product/%EB%A1%9C%EB%A0%88%EC%95%8C-%EC%97%90%EB%A5%B4%EB%84%A4%EB%9C%A8-%EC%8A%A4%ED%94%84%EB%A0%88%EC%9D%B4-500ml/48/" target="_blank" class="featured-item">
+        <div class="featured-img-wrap">
+          <img src="https://taeleeland.com/web/product/medium/202508/7c4e8c6d20447b325b746af5580a54ea.jpg" alt="로레알 스프레이" loading="lazy">
+        </div>
+        <div class="featured-info">
+          <div class="featured-brand">L'Oréal</div>
+          <div class="featured-name">에르네뜨 스프레이 500ml</div>
+          <div class="featured-price">18,000원</div>
+        </div>
+      </a>
+
+      <a href="https://taeleeland.com/product/%EB%B8%8C%EB%A6%AC%ED%8B%B0%EC%8B%9C%EC%97%A0-%ED%97%A4%EC%96%B4-%EA%B7%B8%EB%A3%A8%EB%B0%8D-%ED%86%A0%EB%8B%89-320ml/47/" target="_blank" class="featured-item">
+        <div class="featured-img-wrap">
+          <img src="https://taeleeland.com/web/product/medium/202508/dc2d14838b885f83d019cb23cb9b5c55.jpg" alt="브리티시엠 그루밍토닉" loading="lazy">
+        </div>
+        <div class="featured-info">
+          <div class="featured-brand">British M</div>
+          <div class="featured-name">헤어 그루밍 토닉 320ml</div>
+          <div class="featured-price">60,000원</div>
+        </div>
+      </a>
+
     </div>
 
+    <div style="text-align:center; margin-top:44px;" class="reveal">
+      <a href="https://taeleeland.com/" class="btn btn-gold" target="_blank">쇼핑몰 전체 상품 보기</a>
+    </div>
   </div>
 </div>
 

@@ -1,26 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>태리랜드 | 예약 및 상담 신청</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --white: #fafafa;
+            --gold: #c9a96e;
+            --gold-light: #e8d5b0;
+            --gray: #888;
+            --gray-light: #f0eeec;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--gray-light);
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--black);
+            min-height: 100vh;
+        }
+        .phone-wrap {
+            max-width: 390px;
+            margin: 0 auto;
+            background: var(--white);
+            min-height: 100vh;
+            box-shadow: 0 0 60px rgba(0,0,0,0.15);
+        }
+        .form-header {
+            background: var(--black);
+            padding: 28px 20px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .form-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 100%, rgba(201,169,110,0.2) 0%, transparent 70%);
+        }
+        .back-btn {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 24px;
+            text-decoration: none;
+            z-index: 1;
+        }
+        .header-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .header-badge span {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: var(--gold);
+        }
+        .form-header h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 19px;
+            color: var(--white);
+            letter-spacing: 1px;
+        }
+        .form-header p {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 6px;
+        }
+        .form-body { padding: 24px 20px 120px; }
+        .form-group { margin-bottom: 20px; }
+        .form-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .required { color: var(--gold); }
+        input[type="text"], input[type="tel"], input[type="date"], textarea {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid #e8e4e0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: 'Noto Sans KR', sans-serif;
+            outline: none;
+        }
+        input:focus, textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201,169,110,0.1);
+        }
+        .check-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .check-item, .radio-item {
+            position: relative;
+        }
+        .check-item input, .radio-item input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+        }
+        .check-item label, .radio-item label {
+            display: block;
+            padding: 12px 14px;
+            border: 1.5px solid #e8e4e0;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .check-item input:checked + label,
+        .radio-item input:checked + label {
+            border-color: var(--gold);
+            background: rgba(201,169,110,0.1);
+            color: var(--black);
+            font-weight: 700;
+        }
+        .radio-group { display: flex; flex-direction: column; gap: 8px; }
+        .file-upload-area {
+            border: 1.5px dashed #e8e4e0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .upload-icon { font-size: 24px; margin-bottom: 6px; }
+        .file-upload-area p { font-size: 13px; color: var(--gray); }
+        #fileName { font-size: 13px; color: var(--gold); margin-top: 8px; }
+        textarea {
+            width: 100%;
+            height: 100px;
+            resize: vertical;
+        }
+        .submit-wrap {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 390px;
+            padding: 16px 20px;
+            background: var(--white);
+            border-top: 1px solid #eee;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--black);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Noto Sans KR', sans-serif;
+            transition: opacity 0.2s;
+        }
+        .submit-btn:hover { opacity: 0.85; }
+        .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .success-screen { text-align: center; padding: 80px 20px; }
+        .success-screen h2 { font-size: 24px; margin-bottom: 16px; }
+        .success-screen p { font-size: 15px; color: var(--gray); line-height: 1.8; }
+    </style>
+</head>
+<body>
+<div class="phone-wrap">
+
+    <div class="form-header">
+        <a href="index.html" class="back-btn">←</a>
+        <div class="header-badge"><span>RESERVATION</span></div>
+        <h1>예약 및 스타일 상담</h1>
+        <p>태리랜드 · 이광명 디자이너</p>
+        <p style="margin-top:8px; color:var(--gold);">Powered by 석기시대</p>
+    </div>
+
+    <div class="form-body" id="formBody">
+        <form id="reservationForm" novalidate>
+
+            <div class="form-group">
+                <div class="form-label">👤 이름 <span class="required">*</span></div>
+                <input type="text" name="name" id="name" placeholder="고객님 성함">
+            </div>
+
+            <div class="form-group">
+                <div class="form-label">📱 연락처 <span class="required">*</span></div>
+                <input type="tel" name="phone" id="phone" placeholder="010-0000-0000">
+            </div>
+
+            <div class="form-group">
+                <div class="form-label">✂️ 원하는 시술 <span class="required">*</span></div>
+                <div class="check-group">
+                    <div class="check-item"><input type="checkbox" name="service" value="컷" id="s1"><label for="s1">컷</label></div>
+                    <div class="check-item"><input type="checkbox" name="service" value="펌" id="s2"><label for="s2">펌</label></div>
+                    <div class="check-item"><input type="checkbox" name="service" value="염색" id="s3"><label for="s3">염색</label></div>
+                    <div class="check-item"><input type="checkbox" name="service" value="클리닉" id="s4"><label for="s4">클리닉</label></div>
+                    <div class="check-item"><input type="checkbox" name="service" value="컷+펌" id="s5"><label for="s5">컷+펌</label></div>
+                    <div class="check-item"><input type="checkbox" name="service" value="기타" id="s6"><label for="s6">기타</label></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-label">📅 희망 방문일 <span class="required">*</span></div>
+                <input type="date" name="visitDate" id="visitDate">
+            </div>
+
+            <div class="form-group">
+                <div class="form-label">🕐 희망 시간대 <span class="required">*</span></div>
+                <div class="radio-group">
+                    <div class="radio-item"><input type="radio" name="timeSlot" value="오전" id="t1"><label for="t1">오전 (10:00~12:00)</label></div>
+                    <div class="radio-item"><input type="radio" name="timeSlot" value="오후" id="t2"><label for="t2">오후 (12:00~17:00)</label></div>
+                    <div class="radio-item"><input type="radio" name="timeSlot" value="저녁" id="t3"><label for="t3">저녁 (17:00~20:00)</label></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-label">🖼️ 참고 사진 (선택)</div>
+                <div class="file-upload-area" onclick="document.getElementById('photoInput').click()">
+                    <input type="file" accept="image/*" id="photoInput" style="display:none" onchange="showFileName(this)">
+                    <div class="upload-icon">📷</div>
+                    <p>헤어스타일 참고 사진</p>
+                </div>
+                <div id="fileName"></div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-label">💬 요청사항 (선택)</div>
+                <textarea name="message" placeholder="원하는 스타일이나 주의사항"></textarea>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="success-screen" id="successScreen" style="display:none;">
+        <div style="font-size:60px; margin-bottom:20px;">✅</div>
+        <h2>예약 신청 완료!</h2>
+        <p><strong>이광명 디자이너</strong>가<br>빠르게 연락드리겠습니다.</p>
+        <p style="margin-top:16px; font-size:13px;">📞 확인 후 카카오톡으로 안내드려요</p>
+    </div>
+
+    <div class="submit-wrap" id="submitWrap">
+        <button class="submit-btn" type="button" onclick="submitForm()">예약 신청하기 →</button>
+    </div>
+
+</div>
+
 <script>
-   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwJPmpab_vZmgpoclKC-DPHW-7hy7csMpi-Ew8yeXgvMotzJI71U3ax4H5tIRw2GkAo/exec";
-    document.querySelector('input[type="date"]').min = new Date().toISOString().split('T')[0];
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwJPmpab_vZmgpoclKC-DPHW-7hy7csMpi-Ew8yeXgvMotzJI71U3ax4H5tIRw2GkAo/exec";
+
+    document.getElementById('visitDate').min = new Date().toISOString().split('T')[0];
 
     function showFileName(input) {
         document.getElementById('fileName').textContent = input.files[0] ? '📎 ' + input.files[0].name : '';
     }
 
-    async function submitForm(e) {
-        e.preventDefault();
+    async function submitForm() {
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const visitDate = document.getElementById('visitDate').value;
+        const timeSlot = document.querySelector('input[name="timeSlot"]:checked')?.value || '';
+        const services = Array.from(document.querySelectorAll('input[name="service"]:checked')).map(c => c.value).join(', ');
+        const message = document.querySelector('textarea[name="message"]').value;
+
+        if (!name) { alert('이름을 입력해주세요.'); return; }
+        if (!phone) { alert('연락처를 입력해주세요.'); return; }
+        if (!visitDate) { alert('희망 방문일을 선택해주세요.'); return; }
+        if (!timeSlot) { alert('희망 시간대를 선택해주세요.'); return; }
+
         const btn = document.querySelector('.submit-btn');
         btn.disabled = true;
-        btn.textContent = "전송 중...";
+        btn.textContent = '전송 중...';
 
-        const form = document.getElementById('reservationForm');
         const payload = {
-            name: form.querySelector('[name="name"]').value,
-            phone: form.querySelector('[name="phone"]').value,
-            service: Array.from(form.querySelectorAll('[name="service"]:checked')).map(c => c.value).join(', '),
-            visitDate: form.querySelector('[name="visitDate"]').value,
-            timeSlot: form.querySelector('[name="timeSlot"]:checked')?.value || '',
-            message: form.querySelector('[name="message"]').value,
-            source: "태리랜드_예약폼",
+            name, phone, service: services, visitDate, timeSlot, message,
+            source: '태리랜드_예약폼',
             submittedAt: new Date().toLocaleString('ko-KR')
         };
 
@@ -28,7 +293,7 @@
             const url = SCRIPT_URL + '?payload=' + encodeURIComponent(JSON.stringify(payload));
             await fetch(url, { mode: 'no-cors' });
         } catch(err) {
-            console.log("전송완료");
+            console.log('전송완료');
         }
 
         document.getElementById('formBody').style.display = 'none';
@@ -36,3 +301,5 @@
         document.getElementById('successScreen').style.display = 'block';
     }
 </script>
+</body>
+</html>

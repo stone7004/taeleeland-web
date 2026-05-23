@@ -243,14 +243,11 @@
         };
 
       try {
-    const params = new URLSearchParams();
-    params.append('payload', JSON.stringify(payload));
-
-    await fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: params
-    });
+    const url = SCRIPT_URL + '?payload=' + encodeURIComponent(JSON.stringify(payload));
+    await fetch(url, { mode: 'no-cors' });
+} catch(err) {
+    console.log("전송완료");
+}
         } catch (err) {
             console.log("전송 완료");
         }

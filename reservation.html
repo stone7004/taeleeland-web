@@ -289,13 +289,9 @@
             submittedAt: new Date().toLocaleString('ko-KR')
         };
 
-        try {
-            const url = SCRIPT_URL + '?payload=' + encodeURIComponent(JSON.stringify(payload));
-            await fetch(url, { mode: 'no-cors' });
-        } catch(err) {
-            console.log('전송완료');
-        }
-
+       const url = SCRIPT_URL + '?payload=' + encodeURIComponent(JSON.stringify(payload));
+new Image().src = url;
+await new Promise(resolve => setTimeout(resolve, 1500));
         document.getElementById('formBody').style.display = 'none';
         document.getElementById('submitWrap').style.display = 'none';
         document.getElementById('successScreen').style.display = 'block';
